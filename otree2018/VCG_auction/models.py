@@ -19,6 +19,7 @@ class Constants(BaseConstants):
     num_other_players = players_per_group - 1
     instructions_template = 'VCG_auction/Instructions.html'
     endowment = c(200)
+    half_endowment = c(100)
 
     seed = 20180921
 
@@ -29,8 +30,8 @@ class Subsession(BaseSubsession):
             self.session.vars["random_state"] = np.random.RandomState(Constants.seed)
         
         for p in self.get_players():
-            p.a_private_value = self.session.vars["random_state"].randint(0, Constants.endowment//2)
-            p.b_private_value = self.session.vars["random_state"].randint(0, Constants.endowment//2)
+            p.a_private_value = self.session.vars["random_state"].randint(0, Constants.half_endowment)
+            p.b_private_value = self.session.vars["random_state"].randint(0, Constants.half_endowment)
             ab_sum = p.a_private_value + p.b_private_value
             p.ab_private_value = ab_sum \
                 + self.session.vars["random_state"].randint(0, Constants.endowment-ab_sum)
@@ -62,6 +63,7 @@ class Group(BaseGroup):
                         opt_allocations.append([a, b])
                     elif val > highest_val:
                         opt_allocations = [[a, b]]
+                        highest_val = val
 
         # if tie, winners are chosen at random
         ind = self.session.vars["random_state"].randint(0, len(opt_allocations))
