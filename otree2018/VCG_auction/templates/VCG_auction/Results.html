@@ -1,0 +1,55 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    結果
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        {% if player.is_a_winner and player.is_b_winner %}
+            あなたは<span style="color: red; font-weight: bold;">商品AとBを落札しました！</span>
+        {% elif player.is_a_winner %}
+            あなたは<span style="color: red; font-weight: bold;">商品Aを落札しました！</span>
+        {% elif player.is_b_winner %}
+            あなたは<span style="color: red; font-weight: bold;">商品Bを落札しました！</span>
+        {% else %}
+            あなたは商品を<span style="color: green; font-weight: bold;">落札できませんでした！</span>
+        {% endif %}
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>Aの価値</th>
+            <th>Bの価値</th>
+            <th>ABの価値</th>
+            <th>Aに対する入札額</th>
+            <th>Bに対する入札額</th>
+            <th>ABに対する入札額</th>
+            <th>Aを落札したか</th>
+            <th>Bを落札したか</th>
+            <th>支払額</th>
+            <th>利得</th>
+        </tr>
+
+        <tr>
+            <td>{{ player.a_private_value }}</td>
+            <td>{{ player.b_private_value }}</td>
+            <td>{{ player.ab_private_value }}</td>
+            <td>{{ player.a_bid_amount }}</td>
+            <td>{{ player.b_bid_amount }}</td>
+            <td>{{ player.ab_bid_amount }}</td>
+            <td>{{ player.is_a_winner }}</td>
+            <td>{{ player.is_b_winner }}</td>
+            <td>{{ player.payment }}</td>
+            <td>{{ player.payoff }}</td>
+        </tr>
+
+    </table>
+
+    {% next_button %}
+
+    {% include Constants.instructions_template %}
+
+{% endblock %}

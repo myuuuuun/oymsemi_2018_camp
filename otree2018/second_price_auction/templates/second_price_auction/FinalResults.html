@@ -1,0 +1,44 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    最終結果
+{% endblock %}
+
+{% block content %}
+
+    <p>以上で全ての実験は終了です。お疲れ様でした。以下が最終結果です。</p>
+
+    <table class="table">
+        <tr>
+            <th>期</th>
+            <th>あなたにとってのAの価値</th>
+            <th>あなたの入札額</th>
+            <th>最高入札額</th>
+            <th>2番目に高い入札額</th>
+            <th>あなたが落札したか</th>
+            <th>利得</th>
+        </tr>
+
+        {% for player in player_in_all_rounds %}
+        <tr>
+            <td>{{ player.round_number }}</td>
+            <td>{{ player.private_value }}</td>
+            <td>{{ player.bid_amount }}</td>
+            <td>{{ player.group.highest_bid }}</td>
+            <td>{{ player.group.second_highest_bid }}</td>
+            <td>{{ player.is_winner }}</td>
+            <td>{{ player.payoff }}</td>
+        </tr>
+        {% endfor %}
+
+        <tr>
+            <th colspan="6">合計</th>
+            <td>{{ total_payoff }}</td>
+        </tr>
+
+    </table>
+
+    {% include Constants.instructions_template %}
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    入札額を決めてください
+{% endblock %}
+
+{% block styles %}
+<link href="{% static "vickrey_auction/jquery-ui/jquery-ui.min.css" %}" rel="stylesheet">
+<style type="text/css">
+    .bid-slider {
+        margin: 1.5em auto;
+        width: 70%;
+    }
+
+    .bid {
+        text-align: center;
+    }
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+    <p>
+        あなたにとっての商品Aの価値は <strong>{{ player.private_value }}</strong> です.
+        もしあなたが落札した場合, あなたは
+    </p>
+    <p style="text-align: center;">
+        <strong>{{ endowment_plus_private_value }} - (2番目に高い入札額)</strong>
+    </p>
+    <p>
+        の利得を得ます.
+    </p>
+
+    <div class="form-group required">
+        <label class="control-label" for="id_bid_amount">
+            商品Aに対する入札額を決めてください (0から{{ Constants.endowment }}):</label>
+        <div class="controls">
+            <!--
+            <input type="hidden" name="bid_amount" id="id_bid_amount" value="0">
+            <div class="bid-slider"></div>
+            <div class="bid">あなたの入札額は: <strong><span class="bid-value"></span></strong></div>
+            -->
+            {% formfield player.bid_amount label="あなたの入札額は" %}
+        </div>
+    </div>
+
+    {% next_button %}
+
+    {% include Constants.instructions_template %}
+
+{% endblock %}
+
+
+{% block scripts %}
+<!--
+<script src="{% static "vickrey_auction/jquery-ui/jquery-ui.min.js" %}"></script>
+<script>
+jQuery(document).ready(function ($) {
+    var input = $('#id_bid_amount');
+
+    $('.bid-slider').slider({
+        min: 0,
+        max: {{ Constants.endowment|json }},
+        slide: function (event, ui) {
+            input.val(ui.value);
+            updateBidValue();
+        },
+    });
+
+    function updateBidValue() {
+        $('.bid-value').text(input.val());
+    }
+
+    updateBidValue();
+});
+</script>
+-->
+{% endblock %}

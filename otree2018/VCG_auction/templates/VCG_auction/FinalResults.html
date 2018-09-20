@@ -1,0 +1,52 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    最終結果
+{% endblock %}
+
+{% block content %}
+
+    <p>以上で全ての実験は終了です。お疲れ様でした。以下が最終結果です。</p>
+
+    <table class="table">
+        <tr>
+            <th>期</th>
+            <th>Aの価値</th>
+            <th>Bの価値</th>
+            <th>ABの価値</th>
+            <th>Aに対する入札額</th>
+            <th>Bに対する入札額</th>
+            <th>ABに対する入札額</th>
+            <th>Aを落札したか</th>
+            <th>Bを落札したか</th>
+            <th>支払額</th>
+            <th>利得</th>
+        </tr>
+
+        {% for player in player_in_all_rounds %}
+        <tr>
+            <td>{{ player.round_number }}</td>
+            <td>{{ player.a_private_value }}</td>
+            <td>{{ player.b_private_value }}</td>
+            <td>{{ player.ab_private_value }}</td>
+            <td>{{ player.a_bid_amount }}</td>
+            <td>{{ player.b_bid_amount }}</td>
+            <td>{{ player.ab_bid_amount }}</td>
+            <td>{{ player.is_a_winner }}</td>
+            <td>{{ player.is_b_winner }}</td>
+            <td>{{ player.payment }}</td>
+            <td>{{ player.payoff }}</td>
+        </tr>
+        {% endfor %}
+
+        <tr>
+            <th colspan="10">合計</th>
+            <td>{{ total_payoff }}</td>
+        </tr>
+
+    </table>
+
+    {% include Constants.instructions_template %}
+
+{% endblock %}

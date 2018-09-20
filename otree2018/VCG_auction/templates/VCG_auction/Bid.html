@@ -1,0 +1,62 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    入札額を決めてください
+{% endblock %}
+
+{% block styles %}
+<link href="{% static "vickrey_auction/jquery-ui/jquery-ui.min.css" %}" rel="stylesheet">
+<style type="text/css">
+    .bid {
+        text-align: center;
+    }
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+    <p>
+        あなたにとっての
+    </p>
+
+    <ul>
+        <li>商品Aだけを手に入れた時の価値は <strong>{{ player.a_private_value }}</strong></li>
+        <li>商品Bだけを手に入れた時の価値は <strong>{{ player.b_private_value }}</strong></li>
+        <li>商品AとBを両方手に入れた時の価値は <strong>{{ player.ab_private_value }}</strong></li>
+    </ul>
+
+    <p>
+        です. もしあなたが落札した場合, あなたは
+    </p>
+    <p style="text-align: center;">
+        <strong>{{ endowment }} + (落札した商品の価値) - (支払額)</strong>
+    </p>
+    <p>
+        の利得を得ます. 支払額は
+    </p>
+    <p style="text-align: center;">
+        <strong>(あなた以外の参加者で同じオークションをした時の, 落札者の落札した商品に対するbid額の合計)<br> - (今回のオークションにおける, あなた以外の落札者の落札した商品に対するbid額の合計)</strong>
+    </p>
+    <p>
+        となります.
+    </p>
+
+    <div class="form-group required">
+        <label class="control-label" for="id_bid_amount">
+            商品A, B, AとBの組み合わせ, のそれぞれに対する入札額を決めてください (0から{{ Constants.endowment }}):</label>
+        <div class="controls">
+            {% formfield player.a_bid_amount label="商品Aに対する入札額は" %}
+            {% formfield player.b_bid_amount label="商品Bに対する入札額は" %}
+            {% formfield player.ab_bid_amount label="商品AとBの組に対する入札額は" %}
+        </div>
+    </div>
+
+    {% next_button %}
+
+    {% include Constants.instructions_template %}
+
+{% endblock %}
+
