@@ -7,43 +7,43 @@
 
 {% block content %}
 
-    <p>
-        {% if player.is_winner %}
-            あなたは商品Aを <span style="color: red; font-weight: bold;">落札しました！</span>
-        {% else %}
-            あなたは商品Aを <span style="color: green; font-weight: bold;">落札できませんでした！</span>
-        {% endif %}
-    </p>
+<p>
+    {% if player.is_winner %}
+     あなたは商品Aを <span style="color: red; font-weight: bold;">落札しました！</span>
+    {% else %}
+     あなたは商品Aを <span style="color: green; font-weight: bold;">落札できませんでした！</span>
+    {% endif %}
+</p>
 
-    <table class="table">
-        <tr>
-            <th>あなたにとってのAの価値</th>
-            <th>あなたの入札額</th>
-            <th>最高入札額</th>
-            <th>2番目に高い入札額</th>
-            <th>あなたの支払額</th>
-            <th>あなたの利得</th>
-        </tr>
+<table class="table">
+    <tr>
+        <th>あなたにとってのAの価値</th>
+        <th>あなたの入札額</th>
+        <th>最高入札額</th>
+        <th>2番目に高い入札額</th>
+        <th>あなたの支払額</th>
+        <th>あなたの利得</th>
+    </tr>
 
-        <tr>
-            <td>{{ player.private_value }}</td>
-            <td>{{ player.bid_amount }}</td>
-            <td>{{ group.highest_bid }}</td>
-            <td>{{ group.second_highest_bid }}</td>
-            <td>
-                {% if player.is_winner %}
-                    {{ group.second_highest_bid }}
-                {% else %}
-                    0ポイント
-                {% endif %}
-            </td>
-            <td>{{ player.payoff }}</td>
-        </tr>
+    <tr>
+        <td>{{ player.private_value }}</td>
+        <td>{{ player.bid_amount }}</td>
+        <td>{{ group.highest_bid }}</td>
+        <td>{{ group.second_highest_bid }}</td>
+        <td>
+            {% if player.is_winner %}
+                {{ group.second_highest_bid }}
+            {% else %}
+                0ポイント
+            {% endif %}
+        </td>
+        <td>{{ player.payoff }}</td>
+    </tr>
 
-    </table>
+</table>
 
-    {% next_button %}
+{% next_button %}
 
-    {% include Constants.instructions_template %}
+{% include Constants.instructions_template %}
 
 {% endblock %}

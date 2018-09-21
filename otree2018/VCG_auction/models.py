@@ -13,8 +13,8 @@ In this VCG auction, 3 players bid for 2 objects with private values.
 
 class Constants(BaseConstants):
     name_in_url = 'VCG_auction'
-    players_per_group = 3
-    num_rounds = 1
+    players_per_group = 8
+    num_rounds = 10
 
     num_other_players = players_per_group - 1
     instructions_template = 'VCG_auction/Instructions.html'

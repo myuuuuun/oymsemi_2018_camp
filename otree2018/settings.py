@@ -15,7 +15,7 @@ SESSION_CONFIGS = [
     {
         "name": "VCG_auction",
         "display_name": "2 goods VCG Auction",
-        "num_demo_participants": 3,
+        "num_demo_participants": 8,
         "app_sequence": ["VCG_auction"],
     },
     {
